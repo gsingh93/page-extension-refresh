@@ -1,11 +1,44 @@
+<!DOCTYPE html>
 <html>
-	<body>
-		Enter in the URLs or <a href="https://developer.chrome.com/extensions/match_patterns.html">URL patterns</a> to refresh. One pattern per line.
-		<br><br>
-		<textarea id="urls" style="width: 400px; height:150px"></textarea><br>
-		<button id="save">Save</button>
-		
-		<script src="jquery.js"></script>
-		<script src="options.js"></script>
-	</body>
+<head>
+	<style>
+		#urls {
+			width: 400px;
+			height:150px;
+		}
+
+		#extension-title {
+			cursor: pointer;
+		}
+
+		#triangle {
+			position: relative; top: 2px;
+		}
+
+		#extension-list {
+			margin: 0;
+			list-style-type: none;
+			display: none;
+		}
+	</style>
+</head>
+<body>
+	Enter in the URLs or <a href="https://developer.chrome.com/extensions/match_patterns.html">URL patterns</a> to refresh. One pattern per line.
+	<br><br>
+
+	<textarea id="urls"></textarea>
+	<br><br>
+
+	<div id="extension-title">
+		<img id="triangle" src="down_triangle.png">
+		Extensions
+	</div>
+	<ul id="extension-list"></ul>
+	<br>
+
+	<button id="save">Save</button>
+
+	<script src="jquery.js"></script>
+	<script src="options.js"></script>
+</body>
 </html>
