@@ -13,15 +13,32 @@ $(document).ready(function() {
 		for (var i = 0; i < extensions.length; i++) {
 			if (extensions[i].installType == "development") {
 				var li = document.createElement('li');
-				li.innerHTML = extensions[i].name;
+				var cb = document.createElement('input');
+				cb.type = "checkbox";
+				cb.id = 'cb_' + extensions[i].name;
+				li.appendChild(cb);
+				li.appendChild(document.createTextNode(extensions[i].name));
 				list.appendChild(li);
 			}
 		}
+		chrome.storage.local.get('extensions', function (items) {
+			var extensions = items.extensions;
+			for (var i = 0; i < extensions.length; i++) {
+				document.getElementById('cb_' + extensions[i]).checked = true;
+			}
+		});
 	});
 
 	document.getElementById('save').addEventListener("click", function() {
+		extensions = new Array();
+		$('#extension-list li').each(function() {
+			if ($(this).find('input')[0].checked) {
+				extensions.push($(this).text());
+			}
+		});
 		urls = document.getElementById('urls').value.split('\n');
 		chrome.storage.local.set({"urls": urls});
+		chrome.storage.local.set({"extensions": extensions});
 	});
 
 	$('#extension-title').click(function() {
