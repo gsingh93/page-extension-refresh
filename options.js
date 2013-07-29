@@ -30,6 +30,7 @@ $(document).ready(function() {
 	});
 
 	document.getElementById('save').addEventListener("click", function() {
+		document.getElementById('save-text').innerHTML = '';
 		extensions = new Array();
 		$('#extension-list li').each(function() {
 			if ($(this).find('input')[0].checked) {
@@ -39,6 +40,10 @@ $(document).ready(function() {
 		urls = document.getElementById('urls').value.split('\n');
 		chrome.storage.local.set({"urls": urls});
 		chrome.storage.local.set({"extensions": extensions});
+
+		setTimeout(function () {
+			document.getElementById('save-text').innerHTML = 'Saved';
+		}, 100);
 	});
 
 	$('#extension-title').click(function() {
