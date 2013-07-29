@@ -9,12 +9,13 @@ chrome.storage.local.get(['urls', 'extensions'], function (items) {
 	}
 	var ids = items.extensions;
 	for (var i = 0; i < ids.length; i++) {
-		chrome.management.setEnabled(ids[i], false, (function(id) {
+		chrome.management.setEnabled(ids[i], false, (function(id, finished) {
 			return function() {
-				chrome.management.setEnabled(id, true);
+				chrome.management.setEnabled(id, true, function() {
+					if (finished)
+						window.close();
+				});
 			}
-		})(ids[i]));
+		})(ids[i], i == ids.length - 1));
 	}
 });
-
-// window.close();
