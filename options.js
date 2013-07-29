@@ -8,19 +8,22 @@ $(document).ready(function() {
 		document.getElementById('urls').value = text;
 	});
 
+	var exts = new Array();
 	chrome.management.getAll(function(extensions) {
 		var list = document.getElementById('extension-list');
 		for (var i = 0; i < extensions.length; i++) {
 			if (extensions[i].installType == "development") {
+				exts[extensions[i].name] = extensions[i].id;
 				var li = document.createElement('li');
 				var cb = document.createElement('input');
 				cb.type = "checkbox";
-				cb.id = 'cb_' + extensions[i].name;
+				cb.id = 'cb_' + extensions[i].id;
 				li.appendChild(cb);
 				li.appendChild(document.createTextNode(extensions[i].name));
 				list.appendChild(li);
 			}
 		}
+		
 		chrome.storage.local.get('extensions', function (items) {
 			var extensions = items.extensions;
 			for (var i = 0; i < extensions.length; i++) {
@@ -34,7 +37,7 @@ $(document).ready(function() {
 		extensions = new Array();
 		$('#extension-list li').each(function() {
 			if ($(this).find('input')[0].checked) {
-				extensions.push($(this).text());
+				extensions.push(exts[$(this).text()]);
 			}
 		});
 		urls = document.getElementById('urls').value.split('\n');
