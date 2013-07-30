@@ -51,10 +51,10 @@ $(document).ready(function() {
 
 	$('#extension-title').click(function() {
 		var src = $('#triangle').attr('src')
-		if (src == "down_triangle.png")
-			src = "right_triangle.png";
+		if (src == "images/down_triangle.png")
+			src = "images/right_triangle.png";
 		else
-			src = "down_triangle.png";
+			src = "images/down_triangle.png";
 		$('#triangle').attr('src', src);
 		$('#extension-list').slideToggle();
 	})
