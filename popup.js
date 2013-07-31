@@ -6,7 +6,9 @@ chrome.storage.local.get(['urls', 'extensions'], function (items) {
 				chrome.management.setEnabled(id, true, function() {
 					if (finished) {
 						refreshUrls(items.urls);
-						window.close();
+						setTimeout(function() {
+							window.close();
+						}, 100);
 					}
 				});
 			}
